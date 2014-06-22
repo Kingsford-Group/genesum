@@ -6,6 +6,36 @@ estimates.  You provide the tool with an annotation file (in GTF/GFF format)
 and a set of transcript-level estimates, and it aggregates these expression
 estimates to the gene-level.
 
+Building
+--------
+
+Building genesum requires [CMake](http://www.cmake.org/) and a C++11-compatible
+compiler.  The build process is fairly simple.  Checkout the repository or
+download the source tarball and decompress it. In the top-level directory,
+create a sub-directory to perform the build e.g.:
+
+```
+[path/to/genesum]$ mkdir build && cd build
+```
+
+then invoke cmake and make:
+
+```
+[path/to/genesum/build]$ cmake .. && make && make install
+```
+
+The "install" command installs genesum locally to a `/bin` directory under the
+top-level directory, so you won't need admin privileges to do this. Finally,
+create some data and you can test it out.  You can check the usage with the
+`-h` flag.
+
+```
+[path/to/genesum/build]$ cd ..
+[path/to/genesum/]$ bin/genesum -h 
+```
+
+A usage example is given below.
+
 example usage
 -------------
 
