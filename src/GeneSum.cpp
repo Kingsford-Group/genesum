@@ -84,6 +84,7 @@ int main(int argc, const char* argv[]) {
     opt.add("", 1, 1, 0, "annotation file", "-g", "--gtf");
     opt.add("", 1, 1, 0, "expression file", "-e", "--exp");
     opt.add("", 1, 1, 0, "output file", "-o", "--out");
+    opt.add("gene_name", 0, 1, 0, "aggregation key", "-k", "--key");
 
     opt.parse(argc, argv);
 
@@ -112,8 +113,12 @@ int main(int argc, const char* argv[]) {
     string outFname;
     opt.get("-o")->getString(outFname);
 
+    string key;
+    opt.get("-k")->getString(key);
+
+    cerr << "Aggregating estimates using key [" << key << "]\n";
     cerr << "Parsing GTF/GFF [" << gtfFile << "] . . .";
-    auto tgm = TranscriptGeneMap::fromGTF(gtfFile, "gene_name");
+    auto tgm = TranscriptGeneMap::fromGTF(gtfFile, key);
     cerr << " done\n";
     cerr << "File contained: " << tgm.numGenes() << " genes and "
               << tgm.numTranscripts() << " transcripts\n";
@@ -144,7 +149,7 @@ int main(int argc, const char* argv[]) {
     cerr << "\ndone\n";
     expFile.close();
 
-    cerr << "Aggregating expressions to gene level";
+    cerr << "Aggregating expressions to gene level . . .";
     ofstream outFile(outFname);
 
     // preserve any comments in the output
@@ -172,6 +177,8 @@ int main(int argc, const char* argv[]) {
     }
 
     outFile.close();
+    cerr << " done\n";
+
     return 0;
 }
 

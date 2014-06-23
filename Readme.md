@@ -52,8 +52,7 @@ This will produce a file, `expressions_genes.sf` where the expression estimates
 from `expressions.sf` have been aggregated to the gene level according to the
 transcript-to-gene mapping encoded by `annotations.gtf`.  For simplicity, the
 length assigned to each gene in the output file is simply the length of the
-longest transcript present in the input file that mapped to that gene.
-Currently, transcripts are grouped together based on the `gene_name` field of
-the `gtf` file. However, the tool will soon support aggregating transcripts
-based on other fields like `gene_id` or `locus_id`.
-
+longest transcript present in the input file that mapped to that gene. By
+default, transcripts are grouped together based on the `gene_name` field of the
+`gtf` file. However, the `-k` argument supports grouping transcripts based on
+other fields like `gene_id` or `locus_id`.
