@@ -46,18 +46,7 @@ install(TARGETS genesum
 
 #set(POST_INSTALL_SCRIPT ${GAT_SOURCE_DIR}/cmake/PostInstall.cmake)
 
-install(
-    CODE
-    "
-    execute_process(COMMAND \"${CMAKE_COMMAND}\"
-        -DCMAKE_SYSTEM_NAME=${CMAKE_SYSTEM_NAME}
-        -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
-        -P \"${POST_INSTALL_SCRIPT}\")
-    "
-    )
-
 include(InstallRequiredSystemLibraries)
-add_test( NAME simple_test COMMAND ${CMAKE_COMMAND} -DTOPLEVEL_DIR=${GAT_SOURCE_DIR} -P ${GAT_SOURCE_DIR}/cmake/SimpleTest.cmake )
 
 
 
