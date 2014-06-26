@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstring>
+#include <stdexcept> // gcc < 4.8 complains without this
 
 #include "TranscriptGeneMap.hpp"
 #include "gff.h"
