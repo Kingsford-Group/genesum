@@ -76,7 +76,10 @@ message("Build system will compile libgff")
 message("==================================================================")
 ExternalProject_Add(libgff
     DOWNLOAD_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external
-    URL http://www.cs.cmu.edu/~robp/files/libgff.tgz
+    DOWNLOAD_COMMAND curl -L https://github.com/Kingsford-Group/libgff/archive/v1.0.tar.gz -o libgff.tar.gz &&
+                     tar -xzf libgff.tar.gz &&
+                     rm -fr libgff &&
+                     mv -f libgff-1.0 libgff
     SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/libgff
     UPDATE_COMMAND sh -c "mkdir -p <SOURCE_DIR>/build"
     INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/install
