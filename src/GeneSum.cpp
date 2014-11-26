@@ -104,12 +104,30 @@ int main(int argc, const char* argv[]) {
         return 1;
     }
 
-    string gtfFile;
-    opt.get("-g")->getString(gtfFile);
+    string gtfFileName;
+    opt.get("-g")->getString(gtfFileName);
+
+    ifstream gtfFile(gtfFileName);
+    
+    if (!gtfFile.good())
+    {
+        cerr << "Unable to load GTF file: " << gtfFileName << endl;
+        return 1;
+    }
+    else
+    {
+        gtfFile.close();
+    }
 
     string expFname;
     opt.get("-e")->getString(expFname);
     ifstream expFile(expFname);
+    
+    if (!expFile.good())
+    {
+        cerr << "Unable to load expression file: " << expFname << endl;
+        return 1;
+    }
 
     string outFname;
     opt.get("-o")->getString(outFname);
@@ -118,8 +136,8 @@ int main(int argc, const char* argv[]) {
     opt.get("-k")->getString(key);
 
     cerr << "Aggregating estimates using key [" << key << "]\n";
-    cerr << "Parsing GTF/GFF [" << gtfFile << "] . . .";
-    auto tgm = TranscriptGeneMap::fromGTF(gtfFile, key);
+    cerr << "Parsing GTF/GFF [" << gtfFileName << "] . . .";
+    auto tgm = TranscriptGeneMap::fromGTF(gtfFileName, key);
     cerr << " done\n";
     cerr << "File contained: " << tgm.numGenes() << " genes and "
               << tgm.numTranscripts() << " transcripts\n";
